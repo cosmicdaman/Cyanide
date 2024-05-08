@@ -1,9 +1,12 @@
 using System.Net;
+using System.Reflection;
 
 namespace Cyanide
 {
     internal static class Program
     {
+        public static string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Cyanide";
+        public static string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         static CyanideWindow cyanide = new CyanideWindow();
         /// <summary>
         ///  The main entry point for the application.
@@ -20,23 +23,23 @@ namespace Cyanide
         public static void SetupCyanide()
         {
             MessageBox.Show("Cyanide is being setup.", "Cyanide", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Directory.CreateDirectory(cyanide.dir + @"\Projects");
-            Directory.CreateDirectory(cyanide.appData + @"\Cyanide");
-            Directory.CreateDirectory(cyanide.appData + @"\Cyanide\ProjectTemplate");
-            Directory.CreateDirectory(cyanide.appData + @"\Cyanide\Editor");
-            Directory.CreateDirectory(cyanide.dir + @"\CyanideDevelopmentEnvironment");
-            Directory.CreateDirectory(cyanide.dir + @"\CyanideDevelopmentEnvironment\Blocks");
-            Directory.CreateDirectory(cyanide.dir + @"\CyanideDevelopmentEnvironment\Blocks\Categories");
-            Directory.CreateDirectory(cyanide.dir + @"\CyanideDevelopmentEnvironment\Blocks\BlockScripts");
+            Directory.CreateDirectory(dir + @"\Projects");
+            Directory.CreateDirectory(appData);
+            Directory.CreateDirectory(appData + @"\ProjectTemplate");
+            Directory.CreateDirectory(appData + @"\Editor");
+            Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment");
+            Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks");
+            Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks\Categories");
+            Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks\BlockScripts");
             using (WebClient webcli = new())
             {
                 try
                 {
-                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/kernel.cpp", cyanide.appData + @"\Cyanide\ProjectTemplate\kernel.cpp");
-                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/boot.s", cyanide.appData + @"\Cyanide\ProjectTemplate\boot.s");
-                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/link.ld", cyanide.appData + @"\Cyanide\ProjectTemplate\link.ld");
-                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", cyanide.appData + @"\Cyanide\Editor\UI.html");
-                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", cyanide.appData + @"\Cyanide\Editor\index.js");
+                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/kernel.cpp", appData + @"\ProjectTemplate\kernel.cpp");
+                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/boot.s", appData + @"\ProjectTemplate\boot.s");
+                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/link.ld", appData + @"\ProjectTemplate\link.ld");
+                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", appData + @"\Editor\UI.html");
+                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", appData + @"\Editor\index.js");
                 }
                 catch (Exception ex)
                 {
@@ -51,11 +54,11 @@ namespace Cyanide
                     }
                     if (MessageBox.Show($"ERROR: {ex.Message}", "Cyanide", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error) == DialogResult.Retry)
                     {
-                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/kernel.cpp", cyanide.appData + @"\Cyanide\ProjectTemplate\kernel.cpp");
-                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/boot.s", cyanide.appData + @"\Cyanide\ProjectTemplate\boot.s");
-                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/link.ld", cyanide.appData + @"\Cyanide\ProjectTemplate\link.ld");
-                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", cyanide.appData + @"\Cyanide\Editor\UI.html");
-                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", cyanide.appData + @"\Cyanide\Editor\index.js");
+                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/kernel.cpp", appData + @"\ProjectTemplate\kernel.cpp");
+                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/boot.s", appData + @"\ProjectTemplate\boot.s");
+                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/link.ld", appData + @"\ProjectTemplate\link.ld");
+                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", appData + @"\Editor\UI.html");
+                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", appData + @"\Editor\index.js");
                     }
                 }
             }
