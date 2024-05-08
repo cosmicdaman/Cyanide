@@ -109,6 +109,7 @@ namespace Cyanide
 
         }
 
+        // these don't have proper functionality on purpose
         private void NewProjectBtn_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
