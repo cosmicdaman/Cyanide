@@ -127,7 +127,7 @@ namespace Cyanide
             WindowTitle.Text = "Untitled project - Cyanide";
             this.Controls.Add(BlocklyWindow);
             await BlocklyWindow.EnsureCoreWebView2Async(null);
-            BlocklyWindow.CoreWebView2.Navigate($"file:///{appData}/Cyanide/Blockly/index.html");
+            BlocklyWindow.CoreWebView2.Navigate(dir + @"\CyanideDevelopmentEnvironment\UI.html");
             BlocklyWindow.Show();
         }
     }
