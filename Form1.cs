@@ -8,12 +8,10 @@ namespace Cyanide
     {
         private bool isDragging;
         private Point lastcurpos;
-        public string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public CyanideWindow()
         {
-            if (!Directory.Exists(dir + @"\Projects") && !Directory.Exists(appData + @"\Cyanide"))
+            if (!Directory.Exists(Program.dir + @"\Projects") && !Directory.Exists(Program.appData))
             {
                 Program.SetupCyanide();
             }
@@ -74,7 +72,7 @@ namespace Cyanide
             WindowTitle.Text = "Untitled project - Cyanide";
             this.Controls.Add(BlocklyWindow);
             await BlocklyWindow.EnsureCoreWebView2Async(null);
-            BlocklyWindow.CoreWebView2.Navigate(appData + @"\Cyanide\Editor\UI.html");
+            BlocklyWindow.CoreWebView2.Navigate(Program.appData + @"\Cyanide\Editor\UI.html");
             BlocklyWindow.Show();
         }
     }
