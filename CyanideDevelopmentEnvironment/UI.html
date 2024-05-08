@@ -374,11 +374,41 @@
                 </value>
             </block>
         </category>
+        %ToolBoxLoader%
         <sep />
         <category name="Variables" colour="#a55b80" custom="VARIABLE" />
         <category name="Functions" colour="#995ba5" custom="PROCEDURE" />
     </xml>
 
-    <script src="index.js"></script>
+    <script>
+
+        const Gen = new Blockly.Generator('C++');
+
+        %BlocksLoader%
+
+        var Dark = Blockly.Theme.defineTheme('Dark', {
+            base: Blockly.Themes.Classic,
+            componentStyles: {
+                workspaceBackgroundColour: '#1e1e1e',
+                toolboxBackgroundColour: 'blackBackground',
+                toolboxForegroundColour: '#fff',
+                flyoutBackgroundColour: '#252526',
+                flyoutForegroundColour: '#ccc',
+                flyoutOpacity: 1,
+                scrollbarColour: '#797979',
+                insertionMarkerColour: '#fff',
+                insertionMarkerOpacity: 0.3,
+                scrollbarOpacity: 0.4,
+                cursorColour: '#d0d0d0',
+                blackBackground: '#333',
+            },
+        });
+
+        var workspace = Blockly.inject('blocklyDiv',
+            {
+                toolbox: document.getElementById('toolbox'),
+                theme: Dark
+            });
+    </script>
 </body>
 </html>

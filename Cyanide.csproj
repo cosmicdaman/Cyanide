@@ -12,4 +12,16 @@
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2478.35" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CyanideDevelopmentEnvironment\Blocks\Blocks\Basics\when_booted.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CyanideDevelopmentEnvironment\Blocks\JS\when_booted.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CyanideDevelopmentEnvironment\UI.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

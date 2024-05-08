@@ -19,6 +19,7 @@ namespace Cyanide
                 Directory.CreateDirectory(dir + @"\Projects");
                 Directory.CreateDirectory(appData + @"\Cyanide");
                 Directory.CreateDirectory(appData + @"\Cyanide\ProjectTemplate");
+                Directory.CreateDirectory(appData + @"\Cyanide\Editor");
                 using (WebClient webcli = new())
                 {
                     try
@@ -26,27 +27,8 @@ namespace Cyanide
                         webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/kernel.cpp", appData + @"\Cyanide\ProjectTemplate\kernel.cpp");
                         webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/boot.s", appData + @"\Cyanide\ProjectTemplate\boot.s");
                         webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/link.ld", appData + @"\Cyanide\ProjectTemplate\link.ld");
-                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/project.cprj", appData + @"\Cyanide\ProjectTemplate\project.cprj");
-                        ProcessStartInfo info = new ProcessStartInfo
-                        {
-                            FileName = @"C:\Windows\System32\cmd.exe",
-                            Arguments = $@"git clone https://github.com/google/blockly-samples.git {appData}\Cyanide",
-                            WindowStyle = ProcessWindowStyle.Hidden,
-                            CreateNoWindow = true,
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            RedirectStandardError = true
-                        };
-                        using (Process process = Process.Start(info))
-                        {
-                            string error = process.StandardError.ReadToEnd();
-
-                            process.WaitForExit();
-                            if (error != null)
-                            {
-                                MessageBox.Show("ERROR: " + error, "Cyanide", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
+                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", appData + @"\Cyanide\Editor\UI.html");
+                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", appData + @"\Cyanide\Editor\index.js");
                     }
                     catch (Exception ex)
                     {
@@ -64,7 +46,8 @@ namespace Cyanide
                             webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/kernel.cpp", appData + @"\Cyanide\ProjectTemplate\kernel.cpp");
                             webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/boot.s", appData + @"\Cyanide\ProjectTemplate\boot.s");
                             webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/link.ld", appData + @"\Cyanide\ProjectTemplate\link.ld");
-                            webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/project.cprj", appData + @"\Cyanide\ProjectTemplate\project.cprj");
+                            webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", appData + @"\Cyanide\Editor\UI.html");
+                            webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", appData + @"\Cyanide\Editor\index.js");
                         }
                     }
                 }
@@ -128,7 +111,34 @@ namespace Cyanide
             WindowTitle.Text = "Untitled project - Cyanide";
             this.Controls.Add(BlocklyWindow);
             await BlocklyWindow.EnsureCoreWebView2Async(null);
-            BlocklyWindow.CoreWebView2.Navigate(dir + @"\CyanideDevelopmentEnvironment\UI.html");
+            string Blocks = "",ToolBox = "";
+            Dictionary<string, List<string>> CustomToolbox = new();
+            foreach (var category in Directory.GetDirectories(dir + @"\CyanideDevelopmentEnvironment\Blocks\Blocks"))
+            {
+
+                CustomToolbox.Add(Path.GetFileNameWithoutExtension(category),new());
+
+                foreach (var block in Directory.GetFiles(category))
+                {
+                    Blocks += $"Blockly.defineBlocksWithJsonArray([{File.ReadAllText(block)}]);\n";
+                    Blocks += $"Gen.forBlock['{Path.GetFileNameWithoutExtension(block)}'] = {File.ReadAllText(dir + $@"\CyanideDevelopmentEnvironment\Blocks\JS\{Path.GetFileNameWithoutExtension(block)}.js")}\n";
+
+                    CustomToolbox[Path.GetFileNameWithoutExtension(category)].Add(Path.GetFileNameWithoutExtension(block));
+
+                }
+            }
+            
+            foreach (var category in CustomToolbox)
+            {
+                ToolBox += $"<category name=\"{category.Key}\" colour=\"#5b80a5\">\n";
+                foreach (var block  in category.Value)
+                {
+                    ToolBox += $"<block type=\"{block}\"/>\n";
+                }
+                ToolBox += $"<\\category>\n";
+
+            }
+            BlocklyWindow.CoreWebView2.NavigateToString(File.ReadAllText(dir + @"\CyanideDevelopmentEnvironment\UI.html").Replace("%BlocksLoader%",Blocks).Replace("%ToolBoxLoader%", ToolBox));
             BlocklyWindow.Show();
         }
     }
