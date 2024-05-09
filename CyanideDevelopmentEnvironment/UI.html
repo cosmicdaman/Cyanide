@@ -21,20 +21,9 @@
     <div id="blocklyDiv"></div>
 
     <xml id="toolbox" style="display: none">
-        <category name="Logic" colour="#5b80a5">
-            <block type="controls_if" />
-            <block type="logic_compare">
-                <field name="OP">EQ</field>
-            </block>
-            <block type="logic_operation">
-                <field name="OP">AND</field>
-            </block>
-            <block type="logic_negate" />
-            <block type="logic_boolean">
-                <field name="BOOL">TRUE</field>
-            </block>
-            <block type="logic_null" />
-            <block type="logic_ternary" />
+            <!--<block type="operation" />
+    <block type="bool" />
+    <block type="negate" />-->
         </category>
         <category name="Loops" colour="#5ba55b">
             <block type="controls_repeat_ext">
@@ -385,6 +374,8 @@
         const Gen = new Blockly.Generator('C++');
 
         %BlocksLoader%
+
+        %ImplLoader%
 
         var Dark = Blockly.Theme.defineTheme('Dark', {
             base: Blockly.Themes.Classic,

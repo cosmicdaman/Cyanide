@@ -65,6 +65,9 @@ namespace Cyanide
 
         private async void OpenProjectBtn_Click(object sender, EventArgs e)
         {
+
+            var dir = Program.dir;
+
             NewProjectBtn.Hide();
             OpenProjectBtn.Hide();
             ProjectsLabel.Hide();
@@ -72,7 +75,44 @@ namespace Cyanide
             WindowTitle.Text = "Untitled project - Cyanide";
             this.Controls.Add(BlocklyWindow);
             await BlocklyWindow.EnsureCoreWebView2Async(null);
-            BlocklyWindow.CoreWebView2.Navigate(Program.appData + @"\Cyanide\Editor\UI.html");
+            string Blocks = "",ToolBox = "",Impl = "";
+            Dictionary<string, List<string>> CustomToolbox = new();
+
+            foreach (var block in Directory.GetFiles(dir + @"\CyanideDevelopmentEnvironment\Blocks\Blocks"))
+            {
+                Blocks += $"Blockly.defineBlocksWithJsonArray([{File.ReadAllText(block)}]);\n";
+            }
+
+            foreach (var category in Directory.GetDirectories(dir + @"\CyanideDevelopmentEnvironment\Blocks\Blocks"))
+            {
+
+                CustomToolbox.Add(Path.GetFileNameWithoutExtension(category),new());
+
+                foreach (var block in Directory.GetFiles(category))
+                {
+                    Blocks += $"Blockly.defineBlocksWithJsonArray([{File.ReadAllText(block)}]);\n";
+
+                    CustomToolbox[Path.GetFileNameWithoutExtension(category)].Add(Path.GetFileNameWithoutExtension(block));
+
+                }
+            }
+
+            foreach (var impl in Directory.GetFiles(dir + @"\CyanideDevelopmentEnvironment\Blocks\JS"))
+            {
+                Impl += $"Gen.forBlock['{Path.GetFileNameWithoutExtension(impl)}'] = {File.ReadAllText(dir + $@"\CyanideDevelopmentEnvironment\Blocks\JS\{Path.GetFileNameWithoutExtension(impl)}.js")}\n";
+            }
+
+            foreach (var category in CustomToolbox)
+            {
+                ToolBox += $"<category name=\"{category.Key}\" colour=\"#5b80a5\">\n";
+                foreach (var block  in category.Value)
+                {
+                    ToolBox += $"<block type=\"{block}\"></block>\n";
+                }
+                ToolBox += $"</category>\n";
+
+            }
+            BlocklyWindow.CoreWebView2.NavigateToString(File.ReadAllText(dir + @"\CyanideDevelopmentEnvironment\UI.html").Replace("%BlocksLoader%",Blocks).Replace("%ToolBoxLoader%", ToolBox).Replace("%ImplLoader%", Impl));
             BlocklyWindow.Show();
         }
     }

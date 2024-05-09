@@ -26,11 +26,11 @@ namespace Cyanide
             Directory.CreateDirectory(dir + @"\Projects");
             Directory.CreateDirectory(appData);
             Directory.CreateDirectory(appData + @"\ProjectTemplate");
-            Directory.CreateDirectory(appData + @"\Editor");
-            Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment");
-            Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks");
-            Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks\Categories");
-            Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks\BlockScripts");
+            //Directory.CreateDirectory(appData + @"\Editor");
+            //Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment");
+            //Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks");
+            //Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks\Categories");
+            //Directory.CreateDirectory(dir + @"\CyanideDevelopmentEnvironment\Blocks\BlockScripts");
             using (WebClient webcli = new())
             {
                 try
@@ -38,8 +38,8 @@ namespace Cyanide
                     webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/kernel.cpp", appData + @"\ProjectTemplate\kernel.cpp");
                     webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/boot.s", appData + @"\ProjectTemplate\boot.s");
                     webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/link.ld", appData + @"\ProjectTemplate\link.ld");
-                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", appData + @"\Editor\UI.html");
-                    webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", appData + @"\Editor\index.js");
+                    //webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", appData + @"\Editor\UI.html");
+                    //webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", appData + @"\Editor\index.js");
                 }
                 catch (Exception ex)
                 {
@@ -57,8 +57,8 @@ namespace Cyanide
                         webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/kernel.cpp", appData + @"\ProjectTemplate\kernel.cpp");
                         webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/boot.s", appData + @"\ProjectTemplate\boot.s");
                         webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/cyanide-template-project/main/link.ld", appData + @"\ProjectTemplate\link.ld");
-                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", appData + @"\Editor\UI.html");
-                        webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", appData + @"\Editor\index.js");
+                        //webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/UI.html", appData + @"\Editor\UI.html");
+                        //webcli.DownloadFile("https://raw.githubusercontent.com/ThatGuyAstral/Cyanide/main/CyanideDevelopmentEnvironment/index.js", appData + @"\Editor\index.js");
                     }
                 }
             }
