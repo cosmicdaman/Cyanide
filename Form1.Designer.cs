@@ -1,6 +1,3 @@
-﻿using Microsoft.Web.WebView2.WinForms;
-using Microsoft.Web.WebView2.Wpf;
-
 namespace Cyanide
 {
     partial class CyanideWindow
@@ -31,6 +28,7 @@ namespace Cyanide
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CyanideWindow));
             DragBar = new Panel();
             MinimizeBtn = new Button();
             CloseBtn = new Button();
@@ -150,9 +148,9 @@ namespace Cyanide
             BlocklyWindow.AllowExternalDrop = true;
             BlocklyWindow.CreationProperties = null;
             BlocklyWindow.DefaultBackgroundColor = Color.White;
-            BlocklyWindow.Location = new Point(0, 25);
+            BlocklyWindow.Location = new Point(-2, 25);
             BlocklyWindow.Name = "BlocklyWindow";
-            BlocklyWindow.Size = new Size(1115, 681);
+            BlocklyWindow.Size = new Size(1117, 684);
             BlocklyWindow.TabIndex = 5;
             BlocklyWindow.ZoomFactor = 1D;
             // 
@@ -169,6 +167,7 @@ namespace Cyanide
             Controls.Add(DragBar);
             Controls.Add(BlocklyWindow);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CyanideWindow";
             Text = "Cyanide";
             DragBar.ResumeLayout(false);
