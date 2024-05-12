@@ -22,6 +22,12 @@
     <None Update="CyanideDevelopmentEnvironment\Blocks\Blocks\Events\when_booted.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="CyanideDevelopmentEnvironment\Blocks\JS\text_print.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CyanideDevelopmentEnvironment\Blocks\JS\text.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="CyanideDevelopmentEnvironment\Blocks\JS\math_number.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
