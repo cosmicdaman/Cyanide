@@ -7,7 +7,7 @@ namespace Cyanide
     {
         public static string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Cyanide";
         public static string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        static CyanideWindow cyanide = new CyanideWindow();
+        static Form cyanide = new LoadingSplashscreen();
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -18,6 +18,14 @@ namespace Cyanide
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(cyanide);
+        }
+
+        public static void LoadProgram()
+        {
+            var w = new CyanideWindow();
+            w.Show();
+            cyanide.Hide();
+            w.FormClosed += (a, b) => cyanide.Close();
         }
 
         public static void SetupCyanide()
