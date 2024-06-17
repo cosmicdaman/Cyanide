@@ -6,7 +6,7 @@ Cyanide is a Blockly-based code editor that can create a C++ operating system, f
 ## Dependencies
 .NET 6.0 
 ## Installation
-Download `CyanideInstaller.exe` from Releases, and run it.
+Download `CyanideInstaller.exe` from Releases, and run it. (not out yet lol)
 # Linux
 ## Installation
 For compatibility purposes, you will have to build the Linux version of Cyanide from source.
