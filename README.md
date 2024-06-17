@@ -19,5 +19,8 @@ make
 ## Build
 Building cyanide on linux is easy, as there is a Makefile provided.
 Just run: `make cyanide` and you should be good.
-Then, run: `sudo cp /CyanideSourceCodePath/cyanide /usr/bin` to install cyanide
-(make sure to run `cyanide -r`
+Then, run: `sudo cp /CyanideSourceCodePath/cyanide /usr/bin` to install cyanide.
+Finally, run `cyanide`. You should see `cyanide: no parameters specified
+for a list of parameters, use cyanide -lp`.
+
+(make sure to run `cyanide -r` before you launch the editor!)
